@@ -8,13 +8,6 @@
 	<artifactId>e-commuter-generator</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
-	</repositories>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -22,11 +15,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>com.github.lcappuccio</groupId>
-			<artifactId>e-commuter</artifactId>
-			<version>0.8.5</version>
-		</dependency>
 		<dependency>
 			<groupId>ru.lanwen.verbalregex</groupId>
 			<artifactId>java-verbal-expressions</artifactId>
