@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.systemexception</groupId>
-	<artifactId>e-commuter.generator</artifactId>
+	<artifactId>e-commuter-generator</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<repositories>
