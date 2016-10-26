@@ -27,7 +27,7 @@ public class ConvertObjectAndPost {
 		List<String> italiaNames = listCapitalization(fileReader.readFileToLines("italia_nomi.txt"));
 		List<String> italiaSurnames = listCapitalization(fileReader.readFileToLines("italia_cognomi.txt"));
 
-		for (int i = 0; i < 10000; i++) {
+		for (int i = 0; i < 500; i++) {
 			Person person = new Person();
 			person.setId(UUID.randomUUID().toString());
 			person.setName(getRandomNameFrom(italiaNames));
