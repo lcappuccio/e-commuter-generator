@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.systemexception.ecommuter.model.Address;
+import org.systemexception.ecommuter.model.Territory;
 
 /**
  * @author leo
@@ -22,9 +23,15 @@ public class AddressConverter {
 	private static Address addressFromJson(final JsonObject jsonObject) {
 		Gson gson = new Gson();
 		Address address = new Address();
+		Territory territory = new Territory();
 		if (jsonObject.isJsonObject()) {
 			address = gson.fromJson(jsonObject, Address.class);
+			territory.setCountry(jsonObject.get("country").getAsString());
+			territory.setPostalCode(jsonObject.get("postalCode").getAsString());
+			territory.setPlaceName(jsonObject.get("locality").getAsString());
+			address.setTerritory(territory);
 		}
+
 		return address;
 	}
 }
