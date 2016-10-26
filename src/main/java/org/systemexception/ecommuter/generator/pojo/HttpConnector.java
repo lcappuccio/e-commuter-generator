@@ -47,7 +47,7 @@ public class HttpConnector {
 	public static String postPerson(String person) {
 
 		try {
-			URL url = new URL("http://192.168.0.11:8080/ecommuter/person/add");
+			URL url = new URL("http://localhost:8080/ecommuter/person/add");
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			urlConnection.setRequestMethod("POST");
 			urlConnection.setDoOutput(true);
