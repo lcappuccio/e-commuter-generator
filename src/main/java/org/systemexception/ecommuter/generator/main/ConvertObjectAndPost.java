@@ -31,11 +31,11 @@ public class ConvertObjectAndPost {
 			Person person = new Person();
 			person.setId(UUID.randomUUID().toString());
 			person.setName(getRandomNameFrom(italiaNames));
-			person.setSurname(getRandomNameFrom(italiaSurnames));
+			person.setLastname(getRandomNameFrom(italiaSurnames));
 			person.setHomeAddress(getRandomAddressFrom(addresses));
 			person.setWorkAddress(getRandomAddressFrom(addresses));
 			String responseCode = HttpConnector.postPerson(PersonJsonParser.fromPerson(person).toString());
-			System.out.println(person.getId() + ", " + responseCode);
+			System.out.println(person.getId() + ", " + person.getLastname() + ", " + responseCode);
 		}
 
 	}
