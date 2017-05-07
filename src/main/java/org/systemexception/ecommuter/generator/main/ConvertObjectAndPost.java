@@ -35,7 +35,7 @@ public class ConvertObjectAndPost {
 			person.setHomeAddress(getRandomAddressFrom(addresses));
 			person.setWorkAddress(getRandomAddressFrom(addresses));
 			String responseCode = HttpConnector.postPerson(PersonJsonParser.fromPerson(person).toString());
-			System.out.println(person.getId() + ", " + person.getLastname() + ", " + responseCode);
+			System.out.println(i + ":\t" + person.getId() + ", " + person.getLastname() + ", " + responseCode);
 		}
 
 	}
