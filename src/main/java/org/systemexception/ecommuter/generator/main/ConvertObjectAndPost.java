@@ -26,6 +26,7 @@ public class ConvertObjectAndPost {
 		List<String> addresses = fileReader.readFileToLines("milano_ecommuter_addresses.txt");
 		List<String> italiaNames = listCapitalization(fileReader.readFileToLines("italia_nomi.txt"));
 		List<String> italiaSurnames = listCapitalization(fileReader.readFileToLines("italia_cognomi.txt"));
+		int threadCount;
 
 		for (int i = 0; i < 500; i++) {
 			Person person = new Person();
@@ -34,8 +35,12 @@ public class ConvertObjectAndPost {
 			person.setLastname(getRandomNameFrom(italiaSurnames));
 			person.setHomeAddress(getRandomAddressFrom(addresses));
 			person.setWorkAddress(getRandomAddressFrom(addresses));
-			String responseCode = HttpConnector.postPerson(PersonJsonParser.fromPerson(person).toString());
-			System.out.println(i + ":\t" + person.getId() + ", " + person.getLastname() + ", " + responseCode);
+			threadCount = Thread.activeCount();
+			if (threadCount < 500) {
+				Thread t = new Thread(new HttpConnector(PersonJsonParser.fromPerson(person).toString()));
+				t.start();
+			}
+			System.out.println(i + ":\t" + person.getId() + ", " + person.getLastname());
 		}
 
 	}
