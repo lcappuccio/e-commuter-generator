@@ -11,14 +11,7 @@ import java.nio.charset.Charset;
  * @author leo
  * @date 23/09/2016 23:52
  */
-public class HttpConnector implements Runnable {
-
-	private final String person;
-
-	public HttpConnector(String person) {
-
-		this.person = person;
-	}
+public class HttpConnector {
 
 	public static String getAddressObjectAsStringFor(final String formattedAddress) {
 
@@ -51,8 +44,7 @@ public class HttpConnector implements Runnable {
 		}
 	}
 
-	@Override
-	public void run() {
+	public static String postPerson(String person) {
 
 		try {
 			URL url = new URL("http://localhost:8080/ecommuter/person/add");
@@ -66,9 +58,9 @@ public class HttpConnector implements Runnable {
 			osw.write(person);
 			osw.flush();
 			osw.close();
-			urlConnection.getResponseCode();
+			return String.valueOf(urlConnection.getResponseCode());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			return e.getMessage();
 		}
 	}
 }
