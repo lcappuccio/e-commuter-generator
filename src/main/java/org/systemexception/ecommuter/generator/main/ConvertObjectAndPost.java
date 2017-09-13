@@ -1,51 +1,46 @@
 package org.systemexception.ecommuter.generator.main;
 
 import org.systemexception.ecommuter.generator.pojo.AddressConverter;
-import org.systemexception.ecommuter.generator.pojo.FileReader;
 import org.systemexception.ecommuter.generator.pojo.HttpConnector;
 import org.systemexception.ecommuter.model.Address;
 import org.systemexception.ecommuter.model.Person;
 import org.systemexception.ecommuter.pojo.PersonJsonParser;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.Callable;
 
 /**
  * @author leo
  * @date 24/09/2016 10:47
  */
-public class ConvertObjectAndPost {
+public class ConvertObjectAndPost implements Callable<String> {
 
-	public static void main(String[] args) throws IOException {
+	private final List<String> addresses;
+	private final List<String> names;
+	private final List<String> lastnames;
 
-		FileReader fileReader = new FileReader();
+	public ConvertObjectAndPost(List<String> addresses, List<String> names, List<String> lastnames) {
+		this.addresses = addresses;
+		this.names = names;
+		this.lastnames = lastnames;
+	}
 
-		List<String> addresses = fileReader.readFileToLines("milano_ecommuter_addresses.txt");
-		List<String> italiaNames = listCapitalization(fileReader.readFileToLines("italia_nomi.txt"));
-		List<String> italiaSurnames = listCapitalization(fileReader.readFileToLines("italia_cognomi.txt"));
-
-		for (int i = 0; i < 500; i++) {
+	@Override
+	public String call() throws Exception {
+		for (int i = 0; i < 1000; i++) {
 			Person person = new Person();
 			person.setId(UUID.randomUUID().toString());
-			person.setName(getRandomNameFrom(italiaNames));
-			person.setLastname(getRandomNameFrom(italiaSurnames));
+			person.setName(getRandomNameFrom(names));
+			person.setLastname(getRandomNameFrom(lastnames));
 			person.setHomeAddress(getRandomAddressFrom(addresses));
 			person.setWorkAddress(getRandomAddressFrom(addresses));
 			String responseCode = HttpConnector.postPerson(PersonJsonParser.fromPerson(person).toString());
-			System.out.println(i + ":\t" + person.getId() + ", " + person.getLastname() + ", " + responseCode);
+			System.out.println(i + ":\t" + person.getId() + ", " + person.getLastname() + ", " +
+					responseCode);
 		}
-
-	}
-
-	private static List<String> listCapitalization(List<String> names) {
-		List<String> capitalizedNames = new ArrayList<>();
-		for (String name: names) {
-			capitalizedNames.add(name.substring(0, 1).toUpperCase() + name.substring(1));
-		}
-		return capitalizedNames;
+		return "OK";
 	}
 
 	private static Address getRandomAddressFrom(List<String> stringList) {
