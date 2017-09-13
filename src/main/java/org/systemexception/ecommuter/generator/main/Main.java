@@ -15,6 +15,8 @@ public class Main {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 
+		long timeStart = System.currentTimeMillis();
+
 		FileReader fileReader = new FileReader();
 
 		List<String> addresses = fileReader.readFileToLines("milano_ecommuter_addresses.txt");
@@ -28,6 +30,10 @@ public class Main {
 
 		executor.invokeAll(TASK_LIST);
 		executor.shutdown();
+
+		long timeStop = System.currentTimeMillis();
+
+		System.out.println("Time elapsed: " + (timeStop - timeStart)/1000 + " s");
 
 	}
 

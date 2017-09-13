@@ -29,7 +29,7 @@ public class ConvertObjectAndPost implements Callable<String> {
 
 	@Override
 	public String call() throws Exception {
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10; i++) {
 			Person person = new Person();
 			person.setId(UUID.randomUUID().toString());
 			person.setName(getRandomNameFrom(names));
